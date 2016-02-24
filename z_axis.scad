@@ -1,7 +1,7 @@
 use <roadrunnerxy_lib.scad>;
 $fn=64;
 
-pad_only = false;
+pad_only = true;
 
 
 module extrusion() {
@@ -12,7 +12,7 @@ module pad() {
     difference() {
         dxf_extrude(file="bearing_outline.dxf",layer="0",height=16);
     
-    translate([0,2.5,8]) rotate([90,0,0]) color("red") bolt();
+    translate([0,4.8,8]) rotate([90,0,0]) color("red") bolt();
     }
 }
 
@@ -22,7 +22,7 @@ module bolt() {
             cylinder(h=2, r1=(7.5/2), r2=2,center=false);
             translate([0,0,-4])cylinder(h=4,r=(7.5/2),center=false);
     }
-    }
+}
 
 
 
