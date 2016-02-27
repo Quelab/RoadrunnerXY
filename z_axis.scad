@@ -1,7 +1,18 @@
 use <roadrunnerxy_lib.scad>;
 $fn=64;
 
-pad_only = true;
+/*
+ *
+ * render modes:
+ * 0 = none
+ * 1 = bolt verification
+ * 2 = 8020 verification
+ * 3 = pad verification
+ * 4 = pad + 8020 extrusion fit verification
+ * 5 = bearings
+ */
+
+render_mode = 5;
 
 
 module extrusion() {
@@ -24,14 +35,22 @@ module bolt() {
     }
 }
 
-
-
-if(pad_only == true) { pad(); }
-else {
+module pad_assy_verification() {
     union() {
     // for debugging
-        translate([0,-19,-10]) extrusion();
-        color("purple") translate([-19.3,-5,0]) rotate([0,0,180]) pad();
-        color("red") translate([18.7,-5,0]) rotate([0,0,180]) pad();
+        translate([0,-21.2,-10]) extrusion();
+        color("purple") translate([-19.1,-5,0]) rotate([0,0,180]) pad();
+        color("red") translate([19.1,-5,0]) rotate([0,0,180]) pad();
     }
 }
+
+module bearing() {
+    rotate_extrude($fn=256) translate([16,0,0]) import(file="round_bearing.dxf",layer="0");
+}
+
+if(render_mode == 0) {}
+if(render_mode == 1) bolt();
+if(render_mode == 2) extrusion();
+if(render_mode == 3) pad();
+if(render_mode == 4) pad_assy_verification();
+if(render_mode == 5) bearing();
