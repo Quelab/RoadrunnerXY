@@ -45,7 +45,7 @@ module pad_assy_verification() {
 }
 
 module bearing() {
-    rotate_extrude($fn=256) translate([16,0,0]) import(file="round_bearing.dxf",layer="0");
+    rotate_extrude($fn=256) translate([8,0,0]) import(file="round_bearing.dxf",layer="0");
 }
 
 if(render_mode == 0) {}
